@@ -23,6 +23,25 @@ function mobileCheck(str) {
         }
     } return false;
 }
+// DOM
+const input = document.getElementById('input');
+const buttons = document.querySelectorAll('#num-btn');
+const resultsDiv = document.getElementById('results');
+const phoneBtn = document.getElementById('phone-button');
+
+// add functionality to each number button
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        let number;
+        // get info from parent div if span or p tag clicked on
+        if (e.target.tagName == 'SPAN' || e.target.tagName == 'P') {
+            number = e.target.parentElement.attributes.number.value;
+        } else {
+            number = e.target.attributes.number.value;
+        }
+        input.value += number;
+    });
+});
 
 function displayResults(input) {
     let answer = mobileCheck(input);
@@ -32,14 +51,14 @@ function displayResults(input) {
         resultsDiv.innerHTML = 'Invalid phone number! 😕';}
 }
 
-// enter to submit
+// press enter to submit
 input.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) {
         displayResults(e.target.value);
     }
 });
 
-// click to submit
+// click phone icon to submit
 phoneBtn.addEventListener('click', () => {
     displayResults(input.value);
 });
